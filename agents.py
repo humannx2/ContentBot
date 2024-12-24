@@ -1,4 +1,5 @@
 from crewai import Agent
+from tools import search_tool
 
 trend_finder=Agent(
     role="Trend Analyzer in the niche",
@@ -16,7 +17,7 @@ trend_finder=Agent(
 				you uncover and list the most relevant trends that can influence
 				strategic decisions in content creation."""
     ),
-    tools=[],
+    tools=[search_tool,],
     allow_delegation=True,
     max_retry_limit=2
 )
@@ -41,7 +42,7 @@ content_writer=Agent(
     max_retry_limit=2
 )
 
-copyt_writer=Agent(
+copy_writer=Agent(
     role="Writes attractive twitter copies",
     goal="""Develop compelling and innovative content
 				for social media campaigns, with a focus on creating
