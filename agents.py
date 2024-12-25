@@ -54,10 +54,8 @@ content_writer=Agent(
 )
 
 copy_writer=Agent(
-    role="Writes attractive twitter copies",
-    goal="""Develop compelling and innovative content
-				for social media campaigns, with a focus on creating
-				high-impact Twitter tweet copies on these {contents} content""",
+    role="Writes a engaging tweet in 200 characters",
+    goal="""Create content for social media campaigns, with a focus on creating Twitter on this {contents} content""",
     description="This agent uses topics to write an attractive post for content",
     verbose=True,
     memory=True,

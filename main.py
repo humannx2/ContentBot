@@ -12,7 +12,7 @@ crew1 = Crew(
     tasks=[trend_task],
     process=Process.sequential,
     memory=True,
-    cache=True,
+    cache=False,
     max_rpm=100,
     share_crew=True
 )
@@ -22,7 +22,7 @@ crew2 = Crew(
     tasks=[content_task],
     process=Process.sequential,
     memory=True,
-    cache=True,
+    cache=False,
     max_rpm=100,
     share_crew=True
 )
@@ -32,35 +32,30 @@ crew3 = Crew(
     tasks=[Copy_task],
     process=Process.sequential,
     memory=True,
-    cache=True,
+    cache=False,
     max_rpm=100,
     share_crew=True
 )
 
-result=crew1.kickoff({"niche":"Artificial Intelligence"})
-print(result.raw)
+result=crew1.kickoff({"niche":"Search Engine Optimization"})
+# print(result.raw)
 result_raw=result.raw
 topics = result_raw.strip().split("\n")
+cleaned_topics = [topic.split(", ", 1)[1] if ", " in topic else topic for topic in topics]
 
-# Step 2: Remove any numbers or periods and clean the topics list
-cleaned_topics = [topic.split(". ", 1)[1] if ". " in topic else topic for topic in topics]
-
-# Print the final list of topics
-# print(cleaned_topics)
-
-
-# if result.json_dict:
-#     print(f"JSON Output: {json.dumps(result.json_dict, indent=2)}")
-# print(result['result']['topics'])
+print(cleaned_topics)
 
 for topic in cleaned_topics:
-    result2 = crew2.kickoff(inputs={
-        "topic": topic  # Use the result from the trend_finder agent
-    })
-    print(result2)
+    print(topic)
+    # result2 = crew2.kickoff(inputs={"topic": topic})
+    crew2.kickoff(inputs={"topic":topic})
+#     # print(result2)
 
-content=result2.raw
+# # content=result2.raw
 
-result3=crew3.kickoff({"contents":content})
-print(result3)
+# contents = result2_raw.strip().split("\n")
+# cleaned_content = [topic.split(". ", 1)[1] if ". " in content else content for content in contents]
+
+# for content in cleaned_content:
+#     result3=crew3.kickoff({"contents":content})
 
